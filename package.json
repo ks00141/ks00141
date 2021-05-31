@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/ks00141/yh#readme",
   "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.9",
     "nconf": "^0.11.2"
   }
 }

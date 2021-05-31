@@ -1,12 +1,6 @@
-var os = require("os")
+const axios = require('axios');
 
-hostname = os.hostname();
-totalmem = os.totalmem();
-freemem = os.freemem();
-cpus = os.cpus();
-
-console.log(`host name : ${hostname}`);
-console.log(`total memory : ${totalmem}`);
-console.log(`free memory : ${freemem}`);
-console.log('CPU info :\n');
-console.dir(cpus)
+axios.get('http://gw.wisol.co.kr/ekp/login.do?cmd=goLogin')
+    .then((res)=>{
+        console.log(res);
+    })
