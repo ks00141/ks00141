@@ -1,6 +1,14 @@
-const axios = require('axios');
-
-axios.get('http://gw.wisol.co.kr/ekp/login.do?cmd=goLogin')
-    .then((res)=>{
-        console.log(res);
+function setUser(text){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            resolve(text);
+        },1000);
     })
+}
+async function test(){
+    var user = await setUser("yh");
+    console.log(user);
+    console.log("end");
+}
+
+test();
