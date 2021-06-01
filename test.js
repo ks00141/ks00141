@@ -1,14 +1,14 @@
-function setUser(text){
-    return new Promise((resolve,reject)=>{
-        setTimeout(()=>{
-            resolve(text);
-        },1000);
-    })
-}
-async function test(){
-    var user = await setUser("yh");
-    console.log(user);
-    console.log("end");
-}
+const puppeteer = require('puppeteer');
 
-test();
+(async ()=>{
+    const browers = await puppeteer.launch();
+    const page = await browers.newPage();
+    await page.goto("http://gw.wisol.co.kr");
+    // await page.screenshot({path : "../test.png"});
+
+    const test = await page.evaluate(()=>{
+        return document.querySelector("iFrame").innerHTML;
+    });
+    console.log(test);
+    await browers.close();
+})();

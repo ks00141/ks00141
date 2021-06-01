@@ -19,6 +19,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.9",
-    "nconf": "^0.11.2"
+    "nconf": "^0.11.2",
+    "puppeteer": "^10.0.0"
   }
 }
