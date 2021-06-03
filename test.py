@@ -1,5 +1,6 @@
 
 import sys
+import time
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QRadioButton, QButtonGroup
 from PyQt5.QtCore import QCoreApplication
 from selenium import webdriver
@@ -18,7 +19,7 @@ class App(QMainWindow):
     def init_ui(self):
         
         self.setWindowTitle("test")
-        self.setGeometry(100,100,300,130)
+        self.setGeometry(1000,450,300,130)
 
         self.rbtn1 = QRadioButton("All",self)
         self.rbtn1.move(20,20)
@@ -71,7 +72,7 @@ class App(QMainWindow):
         check_list.append((lambda btn : btn.text() if btn.isChecked() else None)(self.rbtn2))
         check_list.append((lambda btn : btn.text() if btn.isChecked() else None)(self.rbtn3))
         check_list.append((lambda btn : btn.text() if btn.isChecked() else None)(self.rbtn4))
-        print(check_list)
+        
 
 
     def openWeb(self):
@@ -83,6 +84,21 @@ class App(QMainWindow):
         pwd.send_keys("wisol1")
         pwd.send_keys(Keys.RETURN)
         
+        self.popup_close(driver)
+        self.goto_mail(driver)
+
+    def popup_close(self,driver):
+        time.sleep(2)
+        driver.switch_to_window(driver.window_handles[1])
+        driver.close()
+        driver.switch_to_window(driver.window_handles[0])
+
+    def goto_mail(self,driver):
+        driver.switch_to_frame('portalBody')
+        driver.find_element_by_css_selector('#wrapMainFix > div.lnbContainer > div > div.nav > ul > li:nth-child(1) > a').click()
+        driver.switch_to_frame('subBody')
+        driver.switch_to_frame('menuFrame')
+        driver.find_element_by_css_selector('#ext-gen10 > div > li:nth-child(4) > ul > li > div > a').click()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
