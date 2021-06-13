@@ -6,48 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        #canvas1{
-            width: 300px;
-            height: 300px;
+
+        html{
+            width: 100%;
+            height: 100%;
+        }
+
+        body{
+            width: 100%;
+            height: 100%;
+            margin : 0px;
+        }
+        body::after{
+            content: '';
+            clear: both;
+            display: block;
+        }
+        canvas{
+            background: gray;
+            display: block;
+            float: left;
+        }
+
+        form{
+            float: left;
         }
         
-        #canvas2{
-            width: 300px;
-            height: 300px;
-            background: gray;
-        }
+
     </style>
 </head>
 <body>
-    <canvas id="canvas1" width = "300" height = "300"></canvas>
-    <canvas id="canvas2" width = "300" height = "300"></canvas>
-    <script>
-        const canvas1 = document.querySelector("#canvas1");
-        const ctx1 = canvas1.getContext("2d");
-        
-        const canvas2 = document.querySelector("#canvas2");
-        const ctx2 = canvas2.getContext("2d");
 
-        const img = ()=>{
-            return new Promise((resolve,reject)=>{
-                resolve(new Image());
-            });
-        }
-
-        img()
-            .then((result)=>{
-                result.src = "./img.jpg";
-                return result;
-            })
-            .then((result)=>{
-                console.log(result.src);
-            });
-        img.onload = ()=>{
-            ctx1.drawImage(img,0,0);
-        }
-        
-
-        
-    </script>
+    <script type = "module" src = "./test.js"></script>
 </body>
 </html>
