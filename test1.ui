@@ -83,38 +83,12 @@
      <rect>
       <x>10</x>
       <y>50</y>
-      <width>81</width>
-      <height>71</height>
+      <width>261</width>
+      <height>91</height>
      </rect>
     </property>
     <property name="text">
      <string>Open</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btn_naver">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>50</y>
-      <width>81</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Naver</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btn_close">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>50</y>
-      <width>81</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Close</string>
     </property>
    </widget>
   </widget>
@@ -127,8 +101,21 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>설정</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="userset"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="userset">
+   <property name="text">
+    <string>사용자설정</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
