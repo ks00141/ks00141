@@ -3,7 +3,8 @@ import sys
 import time
 import datetime
 import openpyxl
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QRadioButton, QButtonGroup, QStatusBar
+import Set_up_user
+from PyQt5.QtWidgets import QAction, QApplication, QMainWindow, QPushButton, QRadioButton, QButtonGroup, QStatusBar
 from PyQt5.QtCore import QCoreApplication
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -18,7 +19,13 @@ class App(QMainWindow):
         self.setWindowTitle("test")
         self.setGeometry(1000,450,300,130)
 
+        test = QAction("User info",self)
+        test.triggered.connect(self.clicked_setup_user)
+
         self.statusBar().showMessage("Ready")
+        self.menubar = self.menuBar()
+        self.setup_menu = self.menubar.addMenu("&Set-up")
+        self.setup_menu.addAction(test)
 
 
         self.rbtn1 = QRadioButton("All",self)
@@ -276,6 +283,11 @@ class App(QMainWindow):
                 list_btn = driver.find_element_by_css_selector('#wrap > form > div:nth-child(20) > ul.menuLeft > li:nth-child(8) > a > span')
                 list_btn.click()
                 break
+
+    def clicked_setup_user(self):
+        w = Set_up_user.Set_up_user()
+        w.showModal()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
