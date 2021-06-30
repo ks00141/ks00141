@@ -1,9 +1,22 @@
-import cv2
+class a:
+    def __init__(self):
+        self.name = "a"
 
-src = cv2.imread("./img/img.JPG",cv2.IMREAD_GRAYSCALE)
+class b:
+    def __init__(self):
+        self.name = 'b'
 
+class c:
+    def __init__(self):
+        self.name = "c"
 
-cv2.imshow("img",src)
+class test(a,b,c):
+    def __init__(self):
+        super(a,self).__init__()
+        print(super())
 
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+    
+    def show(self):
+        print(self.name)
+
+test1 = test()
