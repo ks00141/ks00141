@@ -2,6 +2,8 @@ import sys
 
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 # UI File Load / uic.loadUiType("FileName")
 # UI->Python Class로 변환한 코드 / GUI QtWidget 반환해줌
@@ -17,17 +19,14 @@ class Main(main_form,main_form_widget):
         super().__init__()
         self.setupUi(self)
         self.show()
+        self.ID = None
+        self.PWD = None
         # click이 아닌 Action (Menu) 스위치를 On한다는 의미로 triggereg가 쓰인듯 함
         # Triggered Method 사용하여 Event Slot 등록
         self.userset.triggered.connect(self.open_dialog)
+        self.btn_open.clicked.connect(self.open_web)
 
     
-    def open_dialog(self):
-        userset = Userset()
-        userset.exec_()
-        print(userset.ID)
-        print(userset.PWD)
-        
         # 창유지가 안됨 왜냐하면 Userset 창에 대한 이벤트루프가 안돌기 때문
         # 이렇게만 코드를 짜면 서로 다른 독립적인 두창이 이벤트에 의해 실행되는 것뿐
         # 1. Userset 창을 Main창에 종속시켜버리기(Main창 이벤트 루프가 계속 돌아서 유지되는듯)
@@ -36,6 +35,26 @@ class Main(main_form,main_form_widget):
         # 이렇게 되면 Sub 창 생성은 되나 비동기로 실행 되는듯??
         # 2. 따로 Userset 창 이벤트 루프 만들기 (exec())
         # userset.exec_()
+
+    def open_dialog(self):
+        userset = Userset()
+        userset.exec_()
+        if userset.ID and userset.PWD:
+            self.ID = userset.ID
+            self.PWD = userset.PWD
+            
+        
+
+    def open_web(self):
+        if self.ID and self.PWD:
+            driver = webdriver.Chrome("./chromedriver.exe")
+            driver.get("http://gw.wisol.co.kr")
+            id = driver.find_element_by_xpath('//*[@id="id"]')
+            pwd = driver.find_element_by_xpath('//*[@id="password"]')
+            id.send_keys(self.ID)
+            pwd.send_keys(self.PWD)
+            pwd.send_keys(Keys.RETURN)
+
 
 # MainWindow와 동일하게 Dialog Calss 정의
 class Userset(user_set_form_widget,user_set_form):
@@ -47,13 +66,14 @@ class Userset(user_set_form_widget,user_set_form):
         super().__init__(parent)
         self.setupUi(self)
         self.show()
-        self.ID = None
-        self.PWD = None
-        self.pushButton.clicked.connect(self.send_info)
+        self.pushButton.clicked.connect(self.set_info)
+        self.ID,self.PWD = None,None
+    
     #pushBtn 클릭시 Main창으로 ID/PWD 값 넘겨주기
-    def send_info(self):
+    def set_info(self):
         self.ID = self.id_text.text()
         self.PWD = self.pwd_text.text()
+        self.close()
 
 app = QApplication(sys.argv)
 w = Main()
