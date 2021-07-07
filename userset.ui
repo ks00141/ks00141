@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>327</width>
-    <height>72</height>
+    <width>359</width>
+    <height>264</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,6 +34,9 @@
      <width>171</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
    </property>
    <property name="placeholderText">
     <string>GW PWD</string>
@@ -69,13 +72,26 @@
    <property name="geometry">
     <rect>
      <x>250</x>
-     <y>10</y>
+     <y>180</y>
      <width>71</width>
      <height>51</height>
     </rect>
    </property>
    <property name="text">
     <string>적용</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="connection_test_btn">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>10</y>
+     <width>91</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Test</string>
    </property>
   </widget>
  </widget>

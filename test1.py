@@ -1,4 +1,6 @@
 import sys
+import configparser
+import time
 
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
@@ -19,8 +21,6 @@ class Main(main_form,main_form_widget):
         super().__init__()
         self.setupUi(self)
         self.show()
-        self.ID = None
-        self.PWD = None
         # click이 아닌 Action (Menu) 스위치를 On한다는 의미로 triggereg가 쓰인듯 함
         # Triggered Method 사용하여 Event Slot 등록
         self.userset.triggered.connect(self.open_dialog)
@@ -39,13 +39,11 @@ class Main(main_form,main_form_widget):
     def open_dialog(self):
         userset = Userset()
         userset.exec_()
-        if userset.ID and userset.PWD:
-            self.ID = userset.ID
-            self.PWD = userset.PWD
             
         
 
     def open_web(self):
+        self.load()
         if self.ID and self.PWD:
             driver = webdriver.Chrome("./chromedriver.exe")
             driver.get("http://gw.wisol.co.kr")
@@ -54,6 +52,13 @@ class Main(main_form,main_form_widget):
             id.send_keys(self.ID)
             pwd.send_keys(self.PWD)
             pwd.send_keys(Keys.RETURN)
+
+    def load(self):
+        self.config = configparser.ConfigParser()
+        self.config.read("config.ini")
+        self.ID = self.config["USERSET"]["ID"]
+        self.PWD = self.config["USERSET"]["PWD"]
+        
 
 
 # MainWindow와 동일하게 Dialog Calss 정의
@@ -64,16 +69,39 @@ class Userset(user_set_form_widget,user_set_form):
 
         # 틀만들때 메인창 같이 넘겨서 종속시켜 버리기
         super().__init__(parent)
+        self.config = configparser.ConfigParser()
+        self.config.read("./config.ini")
         self.setupUi(self)
+        self.id_text.setText(self.config["USERSET"]["ID"])
+        self.pwd_text.setText(self.config["USERSET"]["PWD"])
         self.show()
         self.pushButton.clicked.connect(self.set_info)
-        self.ID,self.PWD = None,None
+        self.connection_test_btn.clicked.connect(self.connection_test)
     
     #pushBtn 클릭시 Main창으로 ID/PWD 값 넘겨주기
     def set_info(self):
-        self.ID = self.id_text.text()
-        self.PWD = self.pwd_text.text()
+        self.config["USERSET"]["ID"] = self.id_text.text()
+        self.config["USERSET"]["PWD"] = self.pwd_text.text()
+        with open("./config.ini","w") as config_file:
+            self.config.write(config_file)
         self.close()
+
+
+    #ID / PWD 값으로 GW 접속 테스트
+    def connection_test(self):
+        chromedriver = './chromedriver.exe'
+        # webdriver_options = webdriver.ChromeOptions()
+        # webdriver_options .add_argument('headless')
+        # driver = webdriver.Chrome(chromedriver, options=webdriver_options )
+        driver = webdriver.Chrome(chromedriver)
+        driver.get("http://gw.wisol.co.kr")
+        id = driver.find_element_by_xpath('//*[@id="id"]')
+        pwd = driver.find_element_by_xpath('//*[@id="password"]')
+        id.send_keys(self.id_text.text())
+        pwd.send_keys(self.pwd_text.text())
+        pwd.send_keys(Keys.RETURN)
+
+        
 
 app = QApplication(sys.argv)
 w = Main()
