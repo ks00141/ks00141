@@ -52,12 +52,19 @@ class Main(main_form,main_form_widget):
             id.send_keys(self.ID)
             pwd.send_keys(self.PWD)
             pwd.send_keys(Keys.RETURN)
+            time.sleep(2)
+            if len(driver.window_handles) > 1:
+                print(driver.window_handles)
+
 
     def load(self):
         self.config = configparser.ConfigParser()
         self.config.read("config.ini")
         self.ID = self.config["USERSET"]["ID"]
         self.PWD = self.config["USERSET"]["PWD"]
+    
+    def popup_close(self):
+        pass
         
 
 
@@ -76,7 +83,6 @@ class Userset(user_set_form_widget,user_set_form):
         self.pwd_text.setText(self.config["USERSET"]["PWD"])
         self.show()
         self.pushButton.clicked.connect(self.set_info)
-        self.connection_test_btn.clicked.connect(self.connection_test)
     
     #pushBtn 클릭시 Main창으로 ID/PWD 값 넘겨주기
     def set_info(self):
@@ -86,20 +92,6 @@ class Userset(user_set_form_widget,user_set_form):
             self.config.write(config_file)
         self.close()
 
-
-    #ID / PWD 값으로 GW 접속 테스트
-    def connection_test(self):
-        chromedriver = './chromedriver.exe'
-        # webdriver_options = webdriver.ChromeOptions()
-        # webdriver_options .add_argument('headless')
-        # driver = webdriver.Chrome(chromedriver, options=webdriver_options )
-        driver = webdriver.Chrome(chromedriver)
-        driver.get("http://gw.wisol.co.kr")
-        id = driver.find_element_by_xpath('//*[@id="id"]')
-        pwd = driver.find_element_by_xpath('//*[@id="password"]')
-        id.send_keys(self.id_text.text())
-        pwd.send_keys(self.pwd_text.text())
-        pwd.send_keys(Keys.RETURN)
 
         
 
