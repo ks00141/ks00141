@@ -283,10 +283,6 @@ class App(QMainWindow):
                 list_btn.click()
                 break
 
-    def clicked_setup_user(self):
-        w = Set_up_user.Set_up_user()
-        w.showModal()
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
