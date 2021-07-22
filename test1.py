@@ -45,23 +45,27 @@ class Main(main_form,main_form_widget):
     def open_web(self):
         self.load()
         if self.ID and self.PWD:
-            driver = webdriver.Chrome("./chromedriver.exe")
-            driver.get("http://gw.wisol.co.kr")
-            id = driver.find_element_by_xpath('//*[@id="id"]')
-            pwd = driver.find_element_by_xpath('//*[@id="password"]')
+            self.driver = webdriver.Chrome("./chromedriver.exe")
+            self.driver.get("http://gw.wisol.co.kr")
+            id = self.driver.find_element_by_xpath('//*[@id="id"]')
+            pwd = self.driver.find_element_by_xpath('//*[@id="password"]')
             id.send_keys(self.ID)
             pwd.send_keys(self.PWD)
             pwd.send_keys(Keys.RETURN)
             time.sleep(2)
-            if len(driver.window_handles) > 1:
-                print(driver.window_handles)
-
+            if len(self.driver.window_handles) > 1:
+                self.driver.switch_to_window(self.driver.window_handles[1])
+                self.driver.close()
+                self.driver.switch_to_window(self.driver.window_handles[0])
 
     def load(self):
         self.config = configparser.ConfigParser()
         self.config.read("config.ini")
         self.ID = self.config["USERSET"]["ID"]
         self.PWD = self.config["USERSET"]["PWD"]
+
+    def test(self):
+        print(self.driver)
     
     def popup_close(self):
         pass

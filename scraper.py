@@ -3,7 +3,6 @@ import sys
 import time
 import datetime
 import openpyxl
-import Set_up_user
 from PyQt5.QtWidgets import QAction, QApplication, QMainWindow, QPushButton, QRadioButton, QButtonGroup, QStatusBar
 from PyQt5.QtCore import QCoreApplication
 from selenium import webdriver
