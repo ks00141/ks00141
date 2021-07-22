@@ -1,6 +1,3 @@
-import numpy as np
+a = 8
 
-a = [1,2,3,4,5]
-
-np.array(a)
-
+print(type(a))
