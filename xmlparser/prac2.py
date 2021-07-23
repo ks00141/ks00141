@@ -21,11 +21,19 @@ tool_num = None
 date = None
 week = None
 
-tool_num = input('tool num ? :')
-week = input('week ? : ')
-date = input('date ? : ')
+# tool_num = input('tool num ? :')
+# week = input('week ? : ')
+# date = input('date ? : ')
+
+tool_num = 9
+week = 28
+date = 12
 
 files = os.listdir(f'//10.21.10.204/fab 기술/fab기술/00_BackPart/06_심영현/설비별 알람 리스트/log_file/{week}w/#{tool_num}/{date}')
+path = f'//10.21.10.204/fab 기술/fab기술/00_BackPart/06_심영현/설비별 알람 리스트/log_file/{week}w/#{tool_num}/{date}'
 
-for file in files:
-    print(file)
+file = files[0]
+
+open_file = open(f'{path}/{file}','r')
+
+print(open_file.read(3000))
