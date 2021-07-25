@@ -18,7 +18,8 @@ class Main(QMainWindow,main_form):
         # 여기서 지정하는건 Model 객체의 Data 셋팅이고
         # View에서 보여줄 트리는 다시 셋팅 해줘야 함
         self.model = QFileSystemModel()
-        self.model.setRootPath(QtCore.QDir.rootPath())
+        self.model.setRootPath(r'\\10.21.10.204\fab 기술\fab기술\00_BackPart\06_심영현\설비별 알람 리스트\log_file')
+        print(self.model.rootPath())
 
         # 1. Model.index 값 설정 (Root 위체)
         # 2. view.setRootIndex(1.Model.index 매개변수) 값 설정
