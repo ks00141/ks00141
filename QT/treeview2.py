@@ -13,14 +13,18 @@ class Main(QMainWindow,main_form):
         super().__init__()
         self.setupUi(self)
         
-        # QFileSystemModel --> Root 폴더를 지정해주면 알아서 불러와주는듯
         # QFileSystemModel.setRootPath(path) --> Root폴더 지정
         # QtCore.QDir.rootPath() --> Windows설치되어있는 루트 반환 (보통 C:\\)
+        # 여기서 지정하는건 Model 객체의 Data 셋팅이고
+        # View에서 보여줄 트리는 다시 셋팅 해줘야 함
         self.model = QFileSystemModel()
         self.model.setRootPath(QtCore.QDir.rootPath())
 
-
+        # 1. Model.index 값 설정 (Root 위체)
+        # 2. view.setRootIndex(1.Model.index 매개변수) 값 설정
         self.treeView.setModel(self.model)
+        self.index_root = self.model.index(self.model.rootPath())
+        self.treeView.setRootIndex(self.index_root)
 
         self.show()
 

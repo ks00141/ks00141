@@ -28,6 +28,7 @@ class Main(QMainWindow, main_form):
         model.insertRow(0)
         model.setData(model.index(0,0),'00:00:00')
         model.setData(model.index(0,1),'test')
+        print(model.index(0,0))
 
         # view(QTreeWidget)에 Model(QStandardModel) 바인딩하기
         self.treeView.setModel(model)
