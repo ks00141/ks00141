@@ -27,8 +27,12 @@ class Main(QMainWindow,main_form):
         self.index_root = self.model.index(self.model.rootPath())
         self.treeView.setRootIndex(self.index_root)
 
+        self.pushButton.clicked.connect(self.node_select)
         self.show()
 
+        
+    def node_select(self):
+        self.treeView.selectedItems()
 
 app = QApplication(sys.argv)
 w = Main()
