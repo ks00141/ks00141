@@ -21,7 +21,7 @@ class Main(QMainWindow,main_form):
         self.model.setRootPath(r'\\10.21.10.204\fab 기술\fab기술\00_BackPart\06_심영현\설비별 알람 리스트\log_file')
         print(self.model.rootPath())
 
-        # 1. Model.index 값 설정 (Root 위체)
+        # 1. Model.index 값 설정 (Root 위치)
         # 2. view.setRootIndex(1.Model.index 매개변수) 값 설정
         self.treeView.setModel(self.model)
         self.index_root = self.model.index(self.model.rootPath())
@@ -29,11 +29,12 @@ class Main(QMainWindow,main_form):
 
         self.pushButton.clicked.connect(self.node_select)
         self.show()
-
+        
         
     def node_select(self):
-        self.treeView.selectedItems()
-
+        # QTreeView -> currentIndex() -> data()
+        # QTreeView의 현재 인덱스의 Data
+        print(self.treeView.currentIndex())
 app = QApplication(sys.argv)
 w = Main()
 sys.exit(app.exec_())
