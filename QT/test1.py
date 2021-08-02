@@ -52,15 +52,13 @@ class Main(main_form,main_form_widget):
             id.send_keys(self.ID)
             pwd.send_keys(self.PWD)
             pwd.send_keys(Keys.RETURN)
-            time.sleep(2)
-            if len(self.driver.window_handles) > 1:
-                self.driver.switch_to_window(self.driver.window_handles[1])
-                self.driver.close()
-                self.driver.switch_to_window(self.driver.window_handles[0])
-
+            self.popup_close()
+        else:
+            print("Invalid ID or PWD")
+            
     def load(self):
         self.config = configparser.ConfigParser()
-        self.config.read("config.ini")
+        self.config.read("config.ini",encoding="utf-8")
         self.ID = self.config["USERSET"]["ID"]
         self.PWD = self.config["USERSET"]["PWD"]
 
@@ -68,7 +66,12 @@ class Main(main_form,main_form_widget):
         print(self.driver)
     
     def popup_close(self):
-        pass
+        time.sleep(2)
+        if len(self.driver.window_handles) > 1:
+            self.driver.switch_to_window(self.driver.window_handles[1])
+            self.driver.close()
+            self.driver.switch_to_window(self.driver.window_handles[0])
+
         
 
 
@@ -81,18 +84,41 @@ class Userset(user_set_form_widget,user_set_form):
         # 틀만들때 메인창 같이 넘겨서 종속시켜 버리기
         super().__init__(parent)
         self.config = configparser.ConfigParser()
-        self.config.read("./config.ini")
+        self.config.read("./config.ini",encoding="utf-8")
         self.setupUi(self)
-        self.id_text.setText(self.config["USERSET"]["ID"])
-        self.pwd_text.setText(self.config["USERSET"]["PWD"])
+        try:
+            self.id_text.setText(self.config["USERSET"]["ID"])
+        except:
+            print("not set gw ID")
+        try:
+            self.pwd_text.setText(self.config["USERSET"]["PWD"])
+        except:
+            print("not set gw PWD")        
+        try:
+            self.pst_mail_subject.setText(self.config["SUBJECT"]["PST"])
+        except:
+            print("not set pst subject")
+        try:
+            self.tc_mail_subject.setText(self.config["SUBJECT"]["TC"])
+        except:
+            print("not set tc subject")
+        try:
+            self.ns_mail_subject.setText(self.config["SUBJECT"]["NS"])
+        except:
+            print("not set ns subject")
         self.show()
         self.pushButton.clicked.connect(self.set_info)
     
     #pushBtn 클릭시 Main창으로 ID/PWD 값 넘겨주기
     def set_info(self):
+        self.config["USERSET"] = {}
+        self.config["SUBJECT"] = {}
         self.config["USERSET"]["ID"] = self.id_text.text()
         self.config["USERSET"]["PWD"] = self.pwd_text.text()
-        with open("./config.ini","w") as config_file:
+        self.config["SUBJECT"]["PST"] = self.pst_mail_subject.text()
+        self.config["SUBJECT"]["TC"] = self.tc_mail_subject.text()
+        self.config["SUBJECT"]["NS"] = self.ns_mail_subject.text()
+        with open("./config.ini","w",encoding='utf-8') as config_file:
             self.config.write(config_file)
         self.close()
 
