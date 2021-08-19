@@ -35,7 +35,7 @@ pwd = driver.find_element_by_id('password')
 
 # ID / PWD 입력값 보내기 / Keys.RETURN : ENTER Key 입력
 id.send_keys('yhsim')
-pwd.send_keys('wisol1')
+pwd.send_keys('wisol12')
 pwd.send_keys(Keys.RETURN)
 
 # 그룹웨어 Main Page 진입, POPUP Window 기다리기 (1초)
