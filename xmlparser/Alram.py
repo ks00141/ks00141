@@ -9,6 +9,7 @@ from PyQt5.QtCore import *
 from time import sleep
 
 main_form,main_form_widget = uic.loadUiType("UI.ui")
+
 class Thread(QThread):
     def __init__(self,parent):
         super().__init__(parent)
