@@ -97,14 +97,17 @@
    <widget class="QLabel" name="lblState">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>460</x>
       <y>250</y>
-      <width>56</width>
-      <height>12</height>
+      <width>61</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
   </widget>
@@ -117,8 +120,21 @@
      <height>19</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>설정</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="stringset"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="stringset">
+   <property name="text">
+    <string>Alaram</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
