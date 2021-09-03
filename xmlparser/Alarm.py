@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from PyQt5.Qt import QFileSystemModel
 from PyQt5.QtCore import *
-from time import sleep
+
 
 main_form,main_form_widget = uic.loadUiType("UI.ui")
 stringset_form,stringset_form_widget = uic.loadUiType("stringset.ui")

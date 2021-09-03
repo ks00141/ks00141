@@ -23,16 +23,6 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="le">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>240</y>
-     <width>451</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>
