@@ -33,13 +33,13 @@ class XmlFile():
         return self.time
 
     def setTime(self):
-        self.time = self.xmlfile.find("/TimeStamp")
+        self.time = self.xmlfile.find("./TimeStamp")
 
     def getDesc(self):
         return self.desc
 
     def setDesc(self):
-        self.desc = self.xmlfile.find("/Description")
+        self.desc = self.xmlfile.find("./Description")
 
 class Path():
     def __init__(self):
