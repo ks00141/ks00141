@@ -182,7 +182,6 @@ class Main(main_form,main_form_widget):
         super().__init__()
         self.setupUi(self)
         self.show()
-        self.xlsx = Xlsx()
         self.filepath = Path()
         self.xmlFile = None
         self.workState = [".","..","...","....",".....","......"," .....","  ....","   ...","    ..","     ."]
@@ -204,6 +203,7 @@ class Main(main_form,main_form_widget):
         x.start()
 
     def set(self):
+        
         try:
             self.filepath.setPathAddedWeek(self.model.filePath(self.listView.currentIndex()))
             self.filepath.setPathAddedTools(os.listdir(self.filepath.getPathAddedWeek()))
@@ -213,6 +213,7 @@ class Main(main_form,main_form_widget):
         
 
     def created(self):
+        self.xlsx = Xlsx()
         try:
             self.filepath.dateList = [os.listdir(f"{self.filepath.getPathAddedWeek()}/{tool}") for tool in self.filepath.tools]
             for index in range(4):
